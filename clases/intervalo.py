@@ -183,8 +183,15 @@ class Intervalo(object):
         Devuelve un intervalo con los valores rec√≠procos
         """
         if 0 in self:
-            #si el intervalo contiene el cero debe de aparecer un error
-            raise ZeroDivisionError
+            # si el intervalo contiene el cero debe de aparecer un error
+            # raise ZeroDivisionError
+            if self.lo == 0 :
+                return Intervalo(1.0/self.hi, float("inf"))
+            elif self.hi == 0 :
+                return Intervalo(float("-inf"), 1.0/self.lo)
+            else :
+                print 'Advertencia: El reciproco devuelve la unión de más de un intervalo en forma de una lista'
+                return [Intervalo(float("-inf"), 1.0/self.lo), Intervalo(1.0/self.hi, float("inf"))]
         else:
             return Intervalo(1.0/self.hi,1.0/self.lo)
 
